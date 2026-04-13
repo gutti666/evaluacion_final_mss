@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billboard UNIAGUSTINIANA - Top 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#002855] text-slate-100 min-h-screen font-sans">
+    <div class="max-w-3xl mx-auto py-12 px-4">
+        <header class="text-center mb-12">
+            <h1 class="text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#C5A059] to-white uppercase tracking-tighter">
+                TOP 10 HIT LIST
+            </h1>
+            <p class="text-slate-300 mt-4 font-mono tracking-widest uppercase text-sm">
+                UNIAGUSTINIANA - Capa de Vista (MVC)
+            </p>
+        </header>
+
+        <div class="space-y-3">
+            {% for art in artistas %}
+            <div class="group bg-[#001f42] border border-[#C5A059]/20 hover:border-[#C5A059] p-4 rounded-xl flex items-center justify-between transition-all duration-300 shadow-lg hover:shadow-[#C5A059]/10">
+                <div class="flex items-center gap-6">
+                    <span class="text-3xl font-black text-slate-500 group-hover:text-[#C5A059] transition-colors w-8">
+                        {{ loop.index }}
+                    </span>
+                    <div>
+                        <h2 class="text-xl font-bold text-white">{{ art.nombre }}</h2>
+                        <p class="text-slate-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full {{ 'bg-[#C5A059]' if art.genero == 'Popular' else 'bg-cyan-400' }}"></span>
+                            {{ art.ultimo_exito }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] font-black px-2 py-0.5 rounded border mb-2 {{ 'border-[#C5A059] text-[#C5A059]' if art.genero == 'Popular' else 'border-cyan-400 text-cyan-400' }}">
+                        {{ art.genero | upper }}
+                    </span>
+                    <div class="w-24 bg-slate-800 h-1.5 rounded-full mt-1 overflow-hidden">
+                        <div class="bg-[#C5A059] h-full" style="width: {{ art.popularidad }}%"></div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <footer class="mt-16 text-center text-slate-400">
+            <div class="inline-block p-4 border-t border-[#C5A059]/30">
+                <p class="text-xs font-mono uppercase">Mantenimiento de Sistemas de Software -  Uniagustiniana(2026): Solución basada en Nginx -> (Vista) → FastAPI → MariaDB</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

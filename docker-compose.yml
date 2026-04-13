@@ -1,0 +1,42 @@
+services:
+  # MODELO (Capa de Datos - Persistencia)
+  modelo_db:
+    image: mariadb:latest
+    container_name: db_uniagustiniana
+    environment:
+      MYSQL_ROOT_PASSWORD: uniagustiniana_pass
+      MYSQL_DATABASE: academia_agustiniana_db
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - red_mvc_agustiniana
+
+  # CONTROLADOR (Lógica de Negocio + API)
+  controlador_api:
+    build: ./api
+    image: uniagustiniana/billboard-api:1.0.0
+    container_name: api_controlador
+    environment:
+      DB_HOST: modelo_db
+      MYSQL_ROOT_PASSWORD: uniagustiniana_pass
+    depends_on:
+      - modelo_db
+    networks:
+      - red_mvc_agustiniana
+
+  # VISTA (Punto de Entrada - Gateway Nginx)
+  vista_gateway:
+    image: nginx:latest
+    container_name: web_vista_agustiniana
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - controlador_api
+    networks:
+      - red_mvc_agustiniana
+
+networks:
+  red_mvc_agustiniana:
+    driver: bridge

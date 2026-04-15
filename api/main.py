@@ -5,7 +5,11 @@ import mariadb
 import os
 import time
 
-app = FastAPI()
+app = FastAPI(
+    title="Billboard Uniagustiniana",
+    version="1.1.0",
+    description="Ranking de artistas musicales - Uniagustiniana 2026"
+)
 # Asegúrate de que la ruta coincida con tu estructura de carpetas
 templates = Jinja2Templates(directory="templates")
 

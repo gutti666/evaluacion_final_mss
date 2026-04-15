@@ -14,7 +14,7 @@ services:
   # CONTROLADOR (Lógica de Negocio + API)
   controlador_api:
     build: ./api
-    image: uniagustiniana/billboard-api:1.0.0
+    image: uniagustiniana/billboard-api:1.1.0
     container_name: api_controlador
     environment:
       DB_HOST: modelo_db
